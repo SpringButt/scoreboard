@@ -1,11 +1,11 @@
-// {
-//   "compilerOptions": {
-//     "checkJs": true, // 启用 JavaScript 类型检查
-//     "allowJs": true, // 允许 JavaScript 文件
-//     "baseUrl": ".", // 设置基础路径
-//     "paths": {
-//       "@": ["src/*"]
-//     }
-//   },
-//   "include": ["./auto-imports.d.ts", "./components.d.ts"]
-// }
+{
+  "compilerOptions": {
+    "checkJs": true, // 启用 JavaScript 类型检查
+    "allowJs": true, // 允许 JavaScript 文件
+    "baseUrl": ".", // 设置基础路径
+    "paths": {
+      "@": ["src/*"]
+    }
+  },
+  "include": ["./auto-imports.d.ts", "./components.d.ts"]
+}

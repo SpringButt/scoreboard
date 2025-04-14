@@ -8,6 +8,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    copy: typeof import('./src/components/ScoreColumnCircle copy.vue')['default']
     ScoreColumn: typeof import('./src/components/ScoreColumn.vue')['default']
     ScoreColumnBase: typeof import('./src/components/ScoreColumnBase.vue')['default']
     ScoreColumnCircle: typeof import('./src/components/ScoreColumnCircle.vue')['default']

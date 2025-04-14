@@ -17,7 +17,7 @@ export default defineConfig(async () => ({
       dts: true,
     }),
     AutoImport({
-      imports: ['vue'],
+      imports: ['vue', '@vueuse/core'],
       dts: './auto-imports.d.ts',
     }),
   ],
