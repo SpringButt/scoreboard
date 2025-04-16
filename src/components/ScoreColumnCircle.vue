@@ -16,18 +16,27 @@ const props = defineProps({
   }
 })
 
+const isActive = ref(false)
+onMounted(() => {
+  if (props.groupScore > props.index) {
+    isActive.value = true
+  }
+})
 
-
+const isAnimating = ref(false)
 const before = ref()
 const after = ref()
 const main = ref()
 
 const increment = () => {
   console.log('increment')
+  isAnimating.value = true
   if (main.value) {
+    main.value.parentElement.nextElementSibling.classList.add('isActive')
     const timeLine = createTimeline({
       onComplete: () => {
-
+        isActive.value = true
+        isAnimating.value = false
       }
     })
     timeLine.add(after.value, {
@@ -46,8 +55,14 @@ const increment = () => {
 }
 const decrement = () => {
   console.log('decrement')
+  isAnimating.value = true
   if (main.value) {
-    const timeLine = createTimeline()
+    const timeLine = createTimeline({
+      onComplete: () => {
+        isActive.value = false
+        isAnimating.value = false
+      }
+    })
     timeLine.add(before.value, {
       '--before': '0%',
       duration: 30
@@ -80,18 +95,14 @@ watch(() => props.groupScore, (newVal, oldVal) => {
 
 }, { immediate: false })
 
-const isActive = ref(false)
-onMounted(() => {
-  if (props.groupScore > props.index) {
-    isActive.value = true
-  }
-})
+
 </script>
 
 <template>
   <div
     :class="{
-      isActive
+      isActive,
+      isAnimating
     }"
     class="circle-container relative cursor-pointer h-[4.2vh] w-[min(10vw,150px)] ">
     <div class="before bg-white" ref="before"></div>
@@ -102,11 +113,24 @@ onMounted(() => {
   
 
 <style scoped>
-.circle-container.isActive {
+.circle-container.isActive:not(.isAnimating) {
   --before: 100%;
   --after: 100%;
   --main: 100%;
+  .before {
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    border-top: none;
+  }
 }
+.circle-container:nth-child(1 of .isActive) {
+  .before {
+    border-top-right-radius: 50%;
+    border-top-left-radius: 50%;
+    border-top: 1px solid black;
+  }
+}
+
 
 .circle-container {
   --bg: v-bind(groupColor)

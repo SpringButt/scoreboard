@@ -5,32 +5,32 @@ const groupList = useStorage('groupList', [
   {
     groupName: '组1',
     groupScore: 0,
-    groupColor: '#B2DFDB'
+    groupColor: '#f17172'
   },
   {
     groupName: '组2',
     groupScore: 0,
-    groupColor: '#FF8A80'
+    groupColor: '#fad354'
   },
   {
     groupName: '组3',
     groupScore: 0,
-    groupColor: '#FFF59D'
+    groupColor: '#86dcf4'
   },
   {
     groupName: '组4',
     groupScore: 0,
-    groupColor: '#CE93D8'
+    groupColor: '#b0d097'
   },
   {
     groupName: '组5',
     groupScore: 0,
-    groupColor: '#80DEEA'
+    groupColor: '#ffbdb9'
   },
   {
     groupName: '组6',
     groupScore: 0,
-    groupColor: '#BCAAA4'
+    groupColor: '#d495e0'
   },
 ])
 
