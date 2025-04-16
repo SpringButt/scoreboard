@@ -1,46 +1,73 @@
 <script setup>
-import { invoke } from '@tauri-apps/api/core'
-
-
+import { getCurrentWindow } from '@tauri-apps/api/window'
+import { nanoid } from 'nanoid'
 const groupList = useStorage('groupList', [
   {
     groupName: '组1',
     groupScore: 0,
+    groupColor: '#B2DFDB'
   },
   {
     groupName: '组2',
     groupScore: 0,
+    groupColor: '#FF8A80'
   },
   {
     groupName: '组3',
     groupScore: 0,
+    groupColor: '#FFF59D'
   },
   {
     groupName: '组4',
     groupScore: 0,
+    groupColor: '#CE93D8'
   },
   {
     groupName: '组5',
     groupScore: 0,
+    groupColor: '#80DEEA'
   },
   {
     groupName: '组6',
     groupScore: 0,
+    groupColor: '#BCAAA4'
   },
 ])
 
+provide('clearGroupScore', (index) => {
+  groupList.value[index].groupScore = 0
+  // window.location.reload()
+  console.log(keys.value)
+  keys.value[index] = nanoid()
+  console.log(keys.value)
+})
+
 const handleUpdateGroupName = (name, index) => {
-  console.log('update', name, index)
   groupList.value[index].groupName = name
 }
 const handleUpdateGroupScore = (score, index) => {
-  console.log('update', score, index)
   groupList.value[index].groupScore = score
 }
-async function greet() {
-  // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-  greetMsg.value = await invoke('greet', { name: name.value })
-}
+
+const keys = ref([])
+
+
+onMounted(() => {
+  keys.value = groupList.value.map(() => nanoid())
+  console.log(keys.value)
+  useEventListener(document.documentElement, 'contextmenu', (e) => {
+    e.preventDefault()
+    console.log('contextmenu')
+  })
+  useEventListener(window, 'keydown', async (e) => {
+    // e.preventDefault()
+    console.log(e)
+    if (e.key === 'F11') {
+      const fullscreen = await getCurrentWindow().isFullscreen()
+      await getCurrentWindow().setFullscreen(!fullscreen)
+    }
+  })
+})
 </script>
 
 <template>
@@ -49,9 +76,10 @@ async function greet() {
     <ScoreColumn v-for="(group, index) in groupList"
       :groupName="group.groupName"
       :groupScore="group.groupScore"
+      :groupColor="group.groupColor"
       @update:groupName="handleUpdateGroupName"
       @update:groupScore="handleUpdateGroupScore"
-      :key="index"
+      :key="keys[index]"
       :index="index" />
   </section>
 </template>

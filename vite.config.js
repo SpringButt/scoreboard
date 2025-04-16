@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import tailwindcss from '@tailwindcss/vite'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import path from 'path'
 
 const host = process.env.TAURI_DEV_HOST
@@ -15,9 +16,11 @@ export default defineConfig(async () => ({
     tailwindcss(),
     Components({
       dts: true,
+      resolvers: [ElementPlusResolver()],
     }),
     AutoImport({
       imports: ['vue', '@vueuse/core'],
+      resolvers: [ElementPlusResolver()],
       dts: './auto-imports.d.ts',
     }),
   ],
@@ -26,7 +29,7 @@ export default defineConfig(async () => ({
       '@': path.resolve(__dirname, './src'),
     },
   },
-
+  exclude: ['vue-demi'],
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   //
   // 1. prevent vite from obscuring rust errors
