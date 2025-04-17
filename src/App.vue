@@ -1,5 +1,4 @@
 <script setup>
-import { getCurrentWindow } from '@tauri-apps/api/window'
 import { nanoid } from 'nanoid'
 const groupList = useStorage('groupList', [
   {
@@ -63,8 +62,12 @@ onMounted(() => {
     // e.preventDefault()
     console.log(e)
     if (e.key === 'F11') {
-      const fullscreen = await getCurrentWindow().isFullscreen()
-      await getCurrentWindow().setFullscreen(!fullscreen)
+      e.preventDefault()
+      if (document.fullscreenElement) {
+        await document.exitFullscreen()
+      } else {
+        await document.documentElement.requestFullscreen()
+      }
     }
   })
 })
