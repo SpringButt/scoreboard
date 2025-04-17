@@ -27,7 +27,7 @@ onClickOutside(editRef, (event) => {
 <template>
   <div
 
-    class="flex flex-col w-full text-center justify-center items-center text-lg md:text-xl lg:text-2xl 2xl:text-3xl">
+    class="flex flex-col w-full text-center justify-center items-center text-xl md:text-2xl lg:text-3xl 2xl:text-4xl">
     <div @dblclick="isEditing = true"
       class="truncate w-full min-h-7 empty:border-b-[1px] border-red-400 cursor-pointer"
       v-if="!isEditing">

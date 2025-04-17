@@ -56,6 +56,7 @@ const increment = () => {
 const decrement = () => {
   console.log('decrement')
   isAnimating.value = true
+  // isActive.value = false
   if (main.value) {
     const timeLine = createTimeline({
       onComplete: () => {
@@ -113,7 +114,7 @@ watch(() => props.groupScore, (newVal, oldVal) => {
   
 
 <style scoped>
-.circle-container.isActive:not(.isAnimating) {
+.circle-container.isActive {
   --before: 100%;
   --after: 100%;
   --main: 100%;
